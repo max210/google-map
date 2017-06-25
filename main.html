@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jQuery.js"></script>
+
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#" id="show">显示地点列表</a>
+      </div>
+    </div>
+
+    <div id="left">
+      <ul id="list">
+        <li id="tiananmen">天安门</li>
+        <li id="gugong">故宫</li>
+        <li id="ritan">日坛</li>
+        <li id="jianguomen">建国门</li>
+        <li id="meishuguan">中国美术馆</li>
+        <li id="chaoyangmen">朝阳门</li>
+      </ul>
+    </div>
+      <div id="map"></div>
+
+    <script src="js/Knockout.js"></script>
+    <script src="js/main.js"></script>
+    <script async defer
+        src=
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDFNZ4-6MBa70sbvwnV5h-rEZBrzlEgT4g&libraries=geometry&v=3&callback=initMap">
+    </script>
+  </body>
+</html>

@@ -143,55 +143,66 @@ function initMap() {
             lat: 39.9042,
             lng: 116.407396
         },
-        zoom: 13,
+        zoom: 10,
         styles: styles,
         mapTypeControl: false
     });
 
-    var locations = [{
-            title: 'beijing',
+     locations = [{
+            information: '天安门是中国的首都的象征',
+            title: '天安门',
+            name: 'tiananmen',
             location: {
                 lat: 39.908715,
                 lng: 116.397389
             }
         },
         {
+          information: '故宫里面很多文物',
             title: '故宫',
+            name: 'tiananmen',
             location: {
                 lat: 39.916345,
                 lng: 116.397155
             }
         },
         {
+          information: '很美丽的地方',
             title: '日坛',
+            name: 'tiananmen',
             location: {
                 lat: 39.91583,
                 lng: 116.444329
             }
         },
         {
+          information: '历史久远',
             title: '建国门',
+            name: 'tiananmen',
             location: {
                 lat: 39.9097,
                 lng: 116.4344
             }
         },
         {
+          information: '很棒的美术馆',
             title: '中国美术馆',
+            name: 'tiananmen',
             location: {
                 lat: 39.925342,
                 lng: 116.409009
             }
         },
         {
+          information: '休闲娱乐',
             title: '朝阳门',
+            name: 'tiananmen',
             location: {
                 lat: 39.923846,
                 lng: 116.433593
             }
         }
     ];
-
 
     // marker 弹窗
     var largeInfowindow = new google.maps.InfoWindow();
@@ -224,57 +235,79 @@ function initMap() {
     map.fitBounds(bounds);
 
 
-    // 手机端点击'showList'按钮呼出地点列表
-    document.getElementById('show').addEventListener('click', function() {
-        document.getElementById('left').style.display = "block";
-        document.getElementById('map').style.height = "100%";
-        document.getElementById('map').style.width = "70%";
-        document.getElementById('map').style.float = "right";
+    // 点击按钮呼出或隐藏地点列表
+    $("#show").click(function() {
+        $("#left").toggle();
     });
 
-    // 只显示点击列表中的一个地点
-    var first = document.getElementById('tiananmen');
-    first.addEventListener('click', function() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        };
-        markers[0].setMap(map);
-    });
-    var second = document.getElementById('gugong');
-    second.addEventListener('click', function() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        };
-        markers[1].setMap(map);
-    });
-    var third = document.getElementById('ritan');
-    third.addEventListener('click', function() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        };
-        markers[2].setMap(map);
-    });
-    var fourth = document.getElementById('jianguomen');
-    fourth.addEventListener('click', function() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        };
-        markers[3].setMap(map);
-    });
-    var fifth = document.getElementById('meishuguan');
-    fifth.addEventListener('click', function() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        };
-        markers[4].setMap(map);
-    });
-    var sixth = document.getElementById('chaoyangmen');
-    sixth.addEventListener('click', function() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        };
-        markers[5].setMap(map);
-    });
+    var Loc = function(data) {
+        this.title = ko.observable(data.title);
+        this.information = ko.observable(data.information);
+};
+
+    var ViewModel = function() {
+      var self = this;
+
+      this.locList = ko.observableArray([]);
+
+      locations.forEach(function(catIterm) {
+        self.locList.push( new Loc(catIterm));
+      });
+
+      this.currentLoc = ko.observable();
+
+      this.changeLoc = function(clickedLoc) {
+        self.currentLoc(clickedLoc);
+
+      };
+
+    };
+
+    ko.applyBindings(new ViewModel());
+
+    // // 只显示点击列表中的一个地点
+    // var first = document.getElementById('tiananmen');
+    // first.addEventListener('click', function() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null);
+    //     };
+    //     markers[0].setMap(map);
+    // });
+    // var second = document.getElementById('gugong');
+    // second.addEventListener('click', function() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null);
+    //     };
+    //     markers[1].setMap(map);
+    // });
+    // var third = document.getElementById('ritan');
+    // third.addEventListener('click', function() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null);
+    //     };
+    //     markers[2].setMap(map);
+    // });
+    // var fourth = document.getElementById('jianguomen');
+    // fourth.addEventListener('click', function() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null);
+    //     };
+    //     markers[3].setMap(map);
+    // });
+    // var fifth = document.getElementById('meishuguan');
+    // fifth.addEventListener('click', function() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null);
+    //     };
+    //     markers[4].setMap(map);
+    // });
+    // var sixth = document.getElementById('chaoyangmen');
+    // sixth.addEventListener('click', function() {
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null);
+    //     };
+    //     markers[5].setMap(map);
+    // });
 
 
 
@@ -294,7 +327,7 @@ function showInformation(marker, infowindow) {
     }
 
     // 加载第三方维基百科的api
-    var cityStr = this.title;
+    var cityStr = this.name;
     var $wikiElem = $('#sasa');
     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=json&callback=wikiCallback';
     var wikiRequestTimeout = setTimeout(function() {
@@ -316,7 +349,9 @@ function showInformation(marker, infowindow) {
 
             clearTimeout(wikiRequestTimeout);
         }
-    });
+    }).fail(function() {
+    alert( "error" );
+  });
 
 };
 

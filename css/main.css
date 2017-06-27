@@ -4,18 +4,25 @@ html, body {
   margin:  0;
   padding: 0;
 }
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap：wrap;
+}
 
 #left {
-  width: :15%;
+  width: 15%;
   float: left;
   list-style-type: none;
+  display: none;
 }
 #list {
   list-style-type: none;
 }
 #map {
   height: 100%;
-  width: 85%;
+  width: 100%;
   float: right;
   margin-top: -20px;
 }
@@ -23,7 +30,7 @@ html, body {
 #button {
   float: left;
 }
-@media screen and (max-width:500px) {
+/*@media screen and (max-width:500px) {
     #left {display: none;}
     }
 @media screen and (max-width:500px) {
@@ -31,4 +38,4 @@ html, body {
     height: 100%;
     width: 100%;
   }
-}
+}*/

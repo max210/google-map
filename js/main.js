@@ -240,6 +240,8 @@ function initMap() {
         $("#left").toggle();
     });
 
+
+
     var Loc = function(data) {
         this.title = ko.observable(data.title);
         this.information = ko.observable(data.information);
@@ -258,58 +260,22 @@ function initMap() {
 
       this.changeLoc = function(clickedLoc) {
         self.currentLoc(clickedLoc);
-
+        google.maps.event.trigger(markers[self.locList().indexOf(clickedLoc)], 'click');
       };
+
+    searchLoc = function() {
+        var address = document.getElementById('text-area').value;
+        // alert(address);
+        for (var i = 0; i < self.locList.length; i++) {
+          if (self.locList[i].title === address) {
+            $('#result').appen(address);
+          }
+        }
+      }
 
     };
 
     ko.applyBindings(new ViewModel());
-
-    // // 只显示点击列表中的一个地点
-    // var first = document.getElementById('tiananmen');
-    // first.addEventListener('click', function() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //         markers[i].setMap(null);
-    //     };
-    //     markers[0].setMap(map);
-    // });
-    // var second = document.getElementById('gugong');
-    // second.addEventListener('click', function() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //         markers[i].setMap(null);
-    //     };
-    //     markers[1].setMap(map);
-    // });
-    // var third = document.getElementById('ritan');
-    // third.addEventListener('click', function() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //         markers[i].setMap(null);
-    //     };
-    //     markers[2].setMap(map);
-    // });
-    // var fourth = document.getElementById('jianguomen');
-    // fourth.addEventListener('click', function() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //         markers[i].setMap(null);
-    //     };
-    //     markers[3].setMap(map);
-    // });
-    // var fifth = document.getElementById('meishuguan');
-    // fifth.addEventListener('click', function() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //         markers[i].setMap(null);
-    //     };
-    //     markers[4].setMap(map);
-    // });
-    // var sixth = document.getElementById('chaoyangmen');
-    // sixth.addEventListener('click', function() {
-    //     for (var i = 0; i < markers.length; i++) {
-    //         markers[i].setMap(null);
-    //     };
-    //     markers[5].setMap(map);
-    // });
-
-
 
 };
 
@@ -327,7 +293,7 @@ function showInformation(marker, infowindow) {
     }
 
     // 加载第三方维基百科的api
-    var cityStr = this.name;
+    var cityStr = marker.title;
     var $wikiElem = $('#sasa');
     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=json&callback=wikiCallback';
     var wikiRequestTimeout = setTimeout(function() {

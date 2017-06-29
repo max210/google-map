@@ -17,6 +17,9 @@ html, body {
   list-style-type: none;
   display: none;
 }
+#text-area {
+  width: 100px;
+}
 #list {
   list-style-type: none;
 }

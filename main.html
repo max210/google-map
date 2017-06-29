@@ -17,6 +17,13 @@
     </div>
 <div class="container">
   <div id="left">
+    <div>
+
+      <input id="text-area" type="text" placeholder="输入地址">
+      <input id="btn-area" data-bind="click: searchLoc" type="button" value="查询">
+      <p id="result"></p>
+    </div>
+    
     <ul id="list" data-bind="foreach: locList">
       <li>
           <a href="#"><span data-bind="text: title, click: $parent.changeLoc"> </span></a>

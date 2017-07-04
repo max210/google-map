@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,46 +9,46 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="js/jQuery.js"></script>
 
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand" href="#" id="show">显示地点列表</a>
-      </div>
+        <div class="navbar-inner">
+            <a class="brand" href="#" id="show">显示地点列表</a>
+        </div>
     </div>
-<div class="container">
-  <div id="left">
-    <div>
+    <div class="container">
+        <div id="left">
+            <div>
 
-      <input id="text-area" type="text" placeholder="输入地址">
-      <input id="btn-area" data-bind="click: searchLoc" type="button" value="查询">
-      <p id="result"></p>
-    </div>
-    
-    <ul id="list" data-bind="foreach: locList">
-      <li>
-          <a href="#"><span data-bind="text: title, click: $parent.changeLoc"> </span></a>
-      </li>
-    </ul>
-    <div data-bind="with: currentLoc">
-      <p data-bind="text: information"></p>
-    </div>
-  </div>
-    <div id="map"></div>
+                <input id="text-area" type="text" placeholder="输入地址">
+                <input id="btn-area" data-bind="click: searchLoc" type="button" value="查询">
+            </div>
+            <br>
+             <p>地点列表</p>
+            <ul id="list" data-bind="foreach: locList">
+                <li>
+                    <a href="#"><span data-bind="text: title, click: $parent.changeLoc"> </span></a>
+                </li>
+            </ul>
+            <div data-bind="with: currentLoc">
+                <p data-bind="text: information"></p>
+            </div>
+        </div>
+        <div id="map"></div>
 
-</div>
+    </div>
 
     <script src="js/Knockout.js"></script>
     <script src="js/main.js"></script>
     <script>
-    mapError = function() {
-    alert('Map is missing')
-    }
-</script>
-
-    <script async defer
-        src=
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDFNZ4-6MBa70sbvwnV5h-rEZBrzlEgT4g&libraries=geometry&v=3&callback=initMap" onerror="mapError()">
+        mapError = function() {
+            alert('Map is missing')
+        }
     </script>
-  </body>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFNZ4-6MBa70sbvwnV5h-rEZBrzlEgT4g&libraries=geometry&v=3&callback=initMap" onerror="mapError()">
+    </script>
+</body>
+
 </html>

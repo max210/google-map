@@ -245,7 +245,7 @@ function initMap() {
     var Loc = function(data) {
         this.title = ko.observable(data.title);
         this.information = ko.observable(data.information);
-};
+    };
 
     var ViewModel = function() {
       var self = this;
@@ -265,13 +265,18 @@ function initMap() {
 
     searchLoc = function() {
         var address = document.getElementById('text-area').value;
-        // alert(address);
-        for (var i = 0; i < self.locList.length; i++) {
-          if (self.locList[i].title === address) {
-            $('#result').appen(address);
-          }
+        //1. 清空 locList 数组
+        while (self.locList().length > 0) {
+          self.locList().pop();
         }
-      }
+        //2. 迭代 locations
+        locations.forEach(function(locIterm) {
+              //3. 与输入的内容 address 进行比较，匹配的项，添加上 locList 数组
+            if (locIterm.title === address) {
+                    self.locList.push(locIterm);
+                  }
+        });
+    };
 
     };
 
@@ -310,7 +315,7 @@ function showInformation(marker, infowindow) {
             for (var i = 0; i < articleList.length; i++) {
                 articleStr = articleList[i];
                 var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-                $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
+                $wikiElem.append('<li><a  target="_blank" href="' + url + '">' + articleStr + '</a></li>');
             };
 
             clearTimeout(wikiRequestTimeout);

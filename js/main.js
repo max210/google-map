@@ -287,6 +287,8 @@ function initMap() {
 
 
 function showInformation(marker, infowindow) {
+  
+    if (infowindow.marker == marker)  return;
 
     if (infowindow.marker !== marker) {
         infowindow.marker = marker;
@@ -295,7 +297,7 @@ function showInformation(marker, infowindow) {
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
         });
-    }
+    };
 
     // 加载第三方维基百科的api
     var cityStr = marker.title;
